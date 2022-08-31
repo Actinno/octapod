@@ -1,0 +1,136 @@
+#!/opt/minieliot/bin/python3
+
+from ftpretty import ftpretty
+import json
+from json.decoder import JSONDecodeError
+import sys
+import os
+import logging
+import logging.handlers
+
+FORMAT = ('%(asctime)-15s %(levelname)-8s %(message)s')
+
+logging.basicConfig(format=FORMAT)
+log = logging.getLogger('ftp-upload')
+log.setLevel(logging.INFO)
+
+def usage():
+    log.error(f"USO: {sys.argv[0]} ftp_config.json")
+    sys.exit(1)
+
+def load_config(config_file):
+    with open(config_file, "r") as cf:
+        try:
+            config = json.load(cf)
+            return config
+        except JSONDecodeError as e:
+            raise RuntimeError(f"Error en archivo de configuracion {config_file}: {e}")
+
+def put_files(host, ftp_conn, remote_dir, base_dir, files_list):
+    if remote_dir[-1:] != "/":
+        r_dir = remote_dir + "/"
+    else:
+        r_dir = remote_dir
+
+    for csv in files_list:
+        if csv[-4:] == ".csv":
+            csv_f = base_dir + "/" + csv
+            ok_file = f"{csv_f}.ok.{host}"
+            csv_size = os.stat(csv_f).st_size
+            file_ok = False
+
+            if os.path.isfile(ok_file):
+                log.info(f"Ignorando el archivo {csv_f} para el host {host}")
+                continue
+
+            try:
+                log.info(f"Subiendo archivo {csv_f} a {host}/{r_dir}")
+                size = ftp_conn.put(csv_f, r_dir, quiet=False)
+                if size != csv_size:
+                    raise RuntimeError("No se logro copiar el archivo completo")
+                file_ok = True
+            except Exception as e:
+                log.error(f"Error subiendo el archivo {csv_f} a {host}/{r_dir}: {e}")
+
+            if file_ok:
+                try:
+                    log.info(f"Creando archivo de control de estado: {ok_file}")
+                    with open(ok_file, "w") as f_ok:
+                        f_ok.close()
+                except OSError as e:
+                    log.error(f"No pude crear el archivo {ok_file}")
+
+def cleanup(ftp_servers, local_dir, files_list):
+    n_servers = len(ftp_servers)
+
+    for f in files_list:
+        ok_files = list()
+        count = 0
+        fn = local_dir + "/" + f
+        for ftp in ftp_servers:
+            ok_file = fn + f".ok.{ftp['host']}"
+            if os.path.exists(ok_file):
+                ok_files.append(ok_file)
+                count += 1
+        if count == n_servers:
+            if delete_file(fn):
+                for ok_f in ok_files:
+                    delete_file(ok_f)
+
+def delete_file(fn):
+    try:
+        log.info(f"Eliminando archivo {fn}")
+        os.remove(fn)
+        return True
+    except OSError as e:
+        log.error(f"No pude eliminar el archivo {fn}: {e}")
+    return False
+
+def main(config):
+    for ftp in config['ftp_servers']:
+        host = ftp['host']
+        port = ftp['port']
+        user = ftp['user']
+        pwd  = ftp['pass']
+        psv  = ftp['passive']
+        upc  = ftp['upload_consumo']
+        upf  = ftp['upload_fact']
+        rdc  = ftp['remote_dir_consumo']
+        rdf  = ftp['remote_dir_fact']
+        ldc  = ftp['local_dir_consumo']
+        ldf  = ftp['local_dir_fact']
+    
+        c_list = os.listdir(ldc)
+        f_list = os.listdir(ldf)
+
+        if len(c_list) == 0 and len(f_list) == 0:
+            log.info(f"No hay reportes para subir a las conexiones {user}:xxxxxx@{host}:{port}/{rdc} y {user}:xxxxxx@{host}:{port}/{ldc}")
+            continue
+
+        log.info(f"Conectando al servidor {user}@{host}:{port}")
+        try:
+            f = ftpretty(host, user, pwd, timeout=10, port=port, passive=psv)
+            if upc:
+                put_files(host, f, rdc, ldc, c_list)
+            if upf:
+                put_files(host, f, rdf, ldf, f_list)
+            f.close()
+        except Exception as e:
+            log.error(f"Error subiendo archivos a {user}@{host}:{port}: {e}")
+
+        cleanup(config['ftp_servers'], ldc, c_list)
+        cleanup(config['ftp_servers'], ldf, f_list)
+
+if __name__ == "__main__":
+    if len(sys.argv) == 2:
+        config_file = sys.argv[1]
+        if os.path.isfile(config_file):
+            try:
+                config = load_config(config_file)
+                sys.exit(main(config))
+            except Exception as e:
+                log.error(f"Error: {e}")
+                sys.exit(2)
+
+    usage()
+

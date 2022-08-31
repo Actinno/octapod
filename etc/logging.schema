@@ -1,0 +1,31 @@
+{
+    "$schema":"http://json-schema.org/draft-06/schema#",
+    "$id":"https://example.com/my-schema.json",
+    "title": "Validador de miniEliot",
+    "description": "Esquema para validación de archivo de configuración de logging miniEliot",
+    "type": "object",
+    "definitions": {
+    },
+    "properties": {
+	"logging": {
+	    "type": "object",
+	    "minProperties": 1,
+	    "additionalProperties": false,
+	    "properties": {
+		"handler": { "type": "string", "enum": [ "file", "rotating_file", "time_rotating_file", "stream" ] },
+		"level": { "type": "string", "enum": [ "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" ] },
+                "logdir": { "type": "string", "minimum": 2 },
+		"logfile": { "type": "string", "minimum": 2 },
+		"max_backup": { "type": "number", "minimum": 1 },
+		"rotate_max_bytes": { "type": "number", "minimum": 10240 },
+		"rotate_when": { "type": "string", "enum": [ "S", "M", "H", "D", "W0", "W1", "W2", "W3", "W4", "W5", "W6", "midnight" ] },
+		"rotate_interval": { "type": "number", "minimum": 1 }
+	    },
+	    "required": [ "handler" ]
+	}
+    "additionalProperties": false,
+    "minProperties": 5,
+    "required": [
+        "logging"
+    ]
+}

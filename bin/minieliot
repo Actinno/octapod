@@ -1,0 +1,36 @@
+#!/opt/minieliot/bin/python3
+
+from eliot.config import config
+from eliot.MiniEliot import MiniEliot
+from eliot.logging.configured import log
+import sys
+import os
+import signal
+
+def setup_signals(e):
+    signal.signal(signal.SIGTERM, e.stop)
+    signal.signal(signal.SIGINT,  e.stop)
+    signal.signal(signal.SIGHUP,  e.reload)
+
+def main():
+    """
+    sys.stdout.flush()
+    sys.stderr.flush()
+    sys.stdin.flush()
+    devnull = os.open("/dev/null", os.O_RDWR)
+    for fd in range(3):
+        os.close(fd)
+        os.dup2(devnull, fd)
+    os.close(devnull)
+    """
+
+    e = MiniEliot()
+    setup_signals(e)
+    e.start()
+
+    log.info("Terminando ejecución de miniEliot")
+    sys.exit(0)
+
+if __name__ == "__main__":
+    main()
+

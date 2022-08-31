@@ -1,0 +1,143 @@
+#!/opt/minieliot/bin/python3
+
+import sys
+import getopt
+import json
+from datetime import datetime
+from eliot.config import config
+from eliot.component.ModbusDevice import *
+from eliot.component.ModbusGateway import *
+
+class device(object):
+    def __init__(self, driver, modbus_addr, unique_id, hr_readings, description ):
+        self.enable = True
+        self.driver = driver
+        self.unique_id = unique_id
+        self.modbus_addr = modbus_addr
+        self.hr_readings = hr_readings
+        self.description = description
+
+def find_device_cfg(unique_id):
+    result = {}
+    for gw in config.gateways:
+        for dev in gw.devices:
+            if str(dev.unique_id) == str(unique_id):
+                result['gw']  = gw
+                result['dev'] = dev
+                return result
+    return None
+
+def usage(err=None):
+    if err is not None:
+        print(f"\nERROR: {err}\n")
+    print(f"USO: {sys.argv[0]} [-s|--sequential-read] [-t|--translate] UNIQUE_ID ...")
+    sys.exit(1)
+
+def do_sequential_read(device):
+    record = dict()
+    for hr in device.holding_registers.values():
+        hr.read()
+        record[hr.name] = hr.decode()
+    return record
+
+def do_block_read(device):
+    record = device.block_read_decode_all()
+    return record
+
+def read_devices(args):
+    gateways = dict()
+    for unique_id in args:
+        cfg = find_device_cfg(unique_id) 
+
+        if cfg == None:
+            log.error(f"ERROR: No hay configuración para dispositivo con unique_id='{unique_id}'")
+            sys.exit(1)
+
+        cfg_gw  = cfg['gw']
+        cfg_dev = cfg['dev']
+
+        if gateways.get(cfg_gw.name) == None:
+            gateways[cfg_gw.name] = ModbusGateway(cfg_gw.name, cfg_gw.addr, cfg_gw.port)
+
+        dev = device(
+            cfg_dev.driver, 
+            cfg_dev.modbus_addr, 
+            unique_id, 
+            cfg_dev.hr_readings, 
+            cfg_dev.description
+        )
+        gateways[cfg_gw.name].add_device(dev)
+
+    result = dict()
+    result['reading_method'] = read_method
+    result['devices'] = dict()
+
+    for gw in gateways.values():
+        gw.connect()
+        for d in gw.devices:
+            try:
+                result['devices'][d.unique_id] = dict()
+                result['devices'][d.unique_id]['gateway'] = gw.name
+                result['devices'][d.unique_id]['device_model'] = d.model
+                result['devices'][d.unique_id]['description'] = d.description
+                t0 = time.time()
+
+                if sequential_read:
+                    readed_values = do_sequential_read(d)
+                else:
+                    readed_values = do_block_read(d)
+
+                if len(readed_values) == 0:
+                    raise Exception("Error de lectura de dispositivo.")
+
+                if translate:
+                    translated_values = dict()
+                    for hr_name in readed_values.keys():
+                        hr  = d.holding_registers[hr_name]
+                        val = readed_values[hr_name]
+                        translated_values[hr_name] = hr.translate_value(val)
+                    result['devices'][d.unique_id]['holding_registers'] = translated_values
+                else:
+                    result['devices'][d.unique_id]['holding_registers'] = readed_values
+
+                t1 = time.time() - t0
+                result['devices'][d.unique_id]['reading_time'] = t1
+            except Exception as e:
+                result['devices'][d.unique_id]['error'] = str(e)
+        gw.close()
+    print(json.dumps(result, indent=4, sort_keys=True))
+
+if __name__ == "__main__":
+    try:
+        short_opts = "hstv"
+        long_opts = ["help", "sequential-read", "translate", "verbose"]
+        opts, args = getopt.getopt(sys.argv[1:], short_opts, long_opts)
+    except getopt.GetoptError as err:
+        usage(err)
+
+    read_method = "bloque"
+    sequential_read = False
+    translate = False
+    verbose = False
+
+    for o, a in opts:
+        if o in ("-h", "--help"):
+            usage()
+        elif o in ("-s", "--sequential-read"):
+            read_method = 'secuencial'
+            sequential_read = True
+        elif o in ("-t", "--translate"):
+            translate = True
+        elif o in ("-v", "--verbose"):
+            verbose = True
+
+    if len(args) == 0:
+        usage("Debe especificar el unique_id del dispositivo que quiere leer")
+
+    if verbose:
+        log.setLevel("INFO")
+    else:
+        log.setLevel("ERROR")
+
+    read_devices(args)
+

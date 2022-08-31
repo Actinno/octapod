@@ -1,0 +1,2415 @@
+{
+  "minieliot": {
+    "version": 1,
+    "mode": "local",
+    "data_dir": "/var/minieliot/data",
+    "read_frequency": 15
+  },
+  "logging": {
+    "handler": "stream",
+    "level": "INFO",
+    "logdir": "/var/log/minieliot",
+    "logfile": "minieliot.log",
+    "max_backup": 30,
+    "rotate_max_bytes": 10240,
+    "rotate_when": "D",
+    "rotate_interval": 1
+  },
+  "db_config": {
+    "user": "minieliot",
+    "pass": "minieliot.,",
+    "host": "127.0.0.1",
+    "port": 5432,
+    "db": "minieliot_db",
+    "schema": "public"
+  },
+  "rest_config": {
+    "user": "xxx",
+    "pass": "yyyyyyyyyy",
+    "url": "https://1.2.3.4:9876/api/v1"
+  },
+  "drivers": {
+    "eliot.drivers.klemsan.Powys3122": {
+      "model": "powys_3122",
+      "file": "",
+      "hr_readings": {
+        "lectura_trifasico": [
+          "export_active_energy_t1",
+          "import_active_energy_t1",
+          "export_reactive_energy_t1",
+          "system_frecuency",
+          "fase_1_current",
+          "fase_2_current",
+          "fase_3_current",
+          "total_current",
+          "fase_1_voltage_ln",
+          "fase_2_voltage_ln",
+          "fase_3_voltage_ln",
+          "average_voltage_ln",
+          "fase_1_active_power",
+          "fase_2_active_power",
+          "fase_3_active_power",
+          "total_active_power",
+          "fase_1_reactive_power",
+          "fase_2_reactive_power",
+          "fase_3_reactive_power",
+          "total_reactive_power"
+        ]
+      }
+    },
+    "eliot.drivers.klemsan.Powys1120": {
+      "model": "powys_1120",
+      "file": "",
+      "hr_readings": {
+        "lectura_monofasico": [
+          "export_active_energy",
+          "import_active_energy",
+          "export_reactive_energy",
+          "frequency",
+          "current",
+          "voltage",
+          "active_power",
+          "reactive_power"
+        ]
+      }
+    }
+  },
+  "gateways": {
+    "ETOR CADAII -1": {
+      "enable": true,
+      "addr": "192.168.20.10",
+      "port": 502,
+      "devices": [
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_1-powys_1120",
+          "modbus_addr": 1,
+          "unique_id": 11000,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_2-powys_1120",
+          "modbus_addr": 2,
+          "unique_id": 11001,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_3-powys_1120",
+          "modbus_addr": 3,
+          "unique_id": 11002,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_4-powys_1120",
+          "modbus_addr": 4,
+          "unique_id": 11003,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_5-powys_1120",
+          "modbus_addr": 5,
+          "unique_id": 11004,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_6-powys_1120",
+          "modbus_addr": 6,
+          "unique_id": 11005,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_7-powys_1120",
+          "modbus_addr": 7,
+          "unique_id": 11006,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_8-powys_1120",
+          "modbus_addr": 8,
+          "unique_id": 11007,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_9-powys_1120",
+          "modbus_addr": 9,
+          "unique_id": 11008,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_16-powys_3101",
+          "modbus_addr": 16,
+          "unique_id": 11009,
+          "reading": "lectura_trifasico",
+          "driver": "eliot.drivers.klemsan.Powys3122"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_17-powys_3101",
+          "modbus_addr": 17,
+          "unique_id": 11010,
+          "reading": "lectura_trifasico",
+          "driver": "eliot.drivers.klemsan.Powys3122"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_18-powys_1120",
+          "modbus_addr": 18,
+          "unique_id": 11011,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_19-powys_1120",
+          "modbus_addr": 19,
+          "unique_id": 11012,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_20-powys_1120",
+          "modbus_addr": 20,
+          "unique_id": 11013,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_21-powys_1120",
+          "modbus_addr": 21,
+          "unique_id": 11014,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_22-powys_1120",
+          "modbus_addr": 22,
+          "unique_id": 11015,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_23-powys_1120",
+          "modbus_addr": 23,
+          "unique_id": 11016,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-local_24-powys_1120",
+          "modbus_addr": 24,
+          "unique_id": 11017,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-central_medida_01-powys_3101",
+          "modbus_addr": 31,
+          "unique_id": 12001,
+          "reading": "lectura_trifasico",
+          "driver": "eliot.drivers.klemsan.Powys3122"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-central_medida_02-powys_3101",
+          "modbus_addr": 32,
+          "unique_id": 12002,
+          "reading": "lectura_trifasico",
+          "driver": "eliot.drivers.klemsan.Powys3122"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-central_medida_03-powys_3101",
+          "modbus_addr": 33,
+          "unique_id": 12003,
+          "reading": "lectura_trifasico",
+          "driver": "eliot.drivers.klemsan.Powys3122"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso-1-central_medida_tqm1-powys_3101",
+          "modbus_addr": 34,
+          "unique_id": 12004,
+          "reading": "lectura_trifasico",
+          "driver": "eliot.drivers.klemsan.Powys3122"
+        }
+      ]
+    },
+    "ETOR CADAII 02": {
+      "enable": true,
+      "addr": "192.168.20.11",
+      "port": 502,
+      "devices": [
+        {
+          "enable": true,
+          "description": "cda2_piso02-depto_201-powys_1120",
+          "modbus_addr": 1,
+          "unique_id": 11018,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso02-depto_202-powys_1120",
+          "modbus_addr": 2,
+          "unique_id": 11019,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso02-depto_203-powys_1120",
+          "modbus_addr": 3,
+          "unique_id": 11020,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso03-depto_301-powys_1120",
+          "modbus_addr": 4,
+          "unique_id": 11021,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso03-depto_302-powys_1120",
+          "modbus_addr": 5,
+          "unique_id": 11022,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso03-depto_303-powys_1120",
+          "modbus_addr": 6,
+          "unique_id": 11023,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso03-depto_304-powys_1120",
+          "modbus_addr": 7,
+          "unique_id": 11024,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso03-duplex_1-powys_1120",
+          "modbus_addr": 8,
+          "unique_id": 11025,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso03-duplex_2-powys_1120",
+          "modbus_addr": 9,
+          "unique_id": 11026,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso03-depto_311-powys_1120",
+          "modbus_addr": 10,
+          "unique_id": 11027,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso03-depto_312-powys_1120",
+          "modbus_addr": 11,
+          "unique_id": 11028,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso04-depto_401-powys_1120",
+          "modbus_addr": 12,
+          "unique_id": 11029,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso04-depto_402-powys_1120",
+          "modbus_addr": 13,
+          "unique_id": 11030,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso04-depto_403-powys_1120",
+          "modbus_addr": 14,
+          "unique_id": 11031,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso04-depto_404-powys_1120",
+          "modbus_addr": 15,
+          "unique_id": 11032,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso04-depto_405-powys_1120",
+          "modbus_addr": 16,
+          "unique_id": 11033,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso04-depto_406-powys_1120",
+          "modbus_addr": 17,
+          "unique_id": 11034,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso04-depto_407-powys_1120",
+          "modbus_addr": 18,
+          "unique_id": 11035,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso04-depto_408-powys_1120",
+          "modbus_addr": 19,
+          "unique_id": 11036,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso04-depto_410-powys_1120",
+          "modbus_addr": 20,
+          "unique_id": 11037,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso04-depto_411-powys_1120",
+          "modbus_addr": 21,
+          "unique_id": 11038,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso04-depto_412-powys_1120",
+          "modbus_addr": 22,
+          "unique_id": 11039,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        }
+      ]
+    },
+    "ETOR CADAII 05": {
+      "enable": true,
+      "addr": "192.168.20.12",
+      "port": 502,
+      "devices": [
+        {
+          "enable": true,
+          "description": "cda2_piso05-depto_501-powys_1120",
+          "modbus_addr": 1,
+          "unique_id": 11040,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso05-depto_502-powys_1120",
+          "modbus_addr": 2,
+          "unique_id": 11041,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso05-depto_503-powys_1120",
+          "modbus_addr": 3,
+          "unique_id": 11042,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso05-depto_504-powys_1120",
+          "modbus_addr": 4,
+          "unique_id": 11043,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso05-depto_505-powys_1120",
+          "modbus_addr": 5,
+          "unique_id": 11044,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso05-depto_506-powys_1120",
+          "modbus_addr": 6,
+          "unique_id": 11045,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso05-depto_507-powys_1120",
+          "modbus_addr": 7,
+          "unique_id": 11046,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso05-depto_508-powys_1120",
+          "modbus_addr": 8,
+          "unique_id": 11047,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso05-depto_509-powys_1120",
+          "modbus_addr": 9,
+          "unique_id": 11048,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso05-depto_510-powys_1120",
+          "modbus_addr": 10,
+          "unique_id": 11049,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso05-depto_511-powys_1120",
+          "modbus_addr": 11,
+          "unique_id": 11050,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso05-depto_512-powys_1120",
+          "modbus_addr": 12,
+          "unique_id": 11051,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso06-depto_601-powys_1120",
+          "modbus_addr": 13,
+          "unique_id": 11052,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso06-depto_602-powys_1120",
+          "modbus_addr": 14,
+          "unique_id": 11053,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso06-depto_603-powys_1120",
+          "modbus_addr": 15,
+          "unique_id": 11054,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso06-depto_604-powys_1120",
+          "modbus_addr": 16,
+          "unique_id": 11055,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso06-depto_605-powys_1120",
+          "modbus_addr": 17,
+          "unique_id": 11056,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso06-depto_606-powys_1120",
+          "modbus_addr": 18,
+          "unique_id": 11057,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso06-depto_607-powys_1120",
+          "modbus_addr": 19,
+          "unique_id": 11058,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso06-depto_608-powys_1120",
+          "modbus_addr": 20,
+          "unique_id": 11059,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso06-depto_609-powys_1120",
+          "modbus_addr": 21,
+          "unique_id": 11060,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso06-depto_610-powys_1120",
+          "modbus_addr": 22,
+          "unique_id": 11061,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso06-depto_611-powys_1120",
+          "modbus_addr": 23,
+          "unique_id": 11062,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso06-depto_612-powys_1120",
+          "modbus_addr": 24,
+          "unique_id": 11063,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso07-depto_701-powys_1120",
+          "modbus_addr": 25,
+          "unique_id": 11064,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso07-depto_702-powys_1120",
+          "modbus_addr": 26,
+          "unique_id": 11065,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso07-depto_703-powys_1120",
+          "modbus_addr": 27,
+          "unique_id": 11066,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso07-depto_704-powys_1120",
+          "modbus_addr": 28,
+          "unique_id": 11067,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso07-depto_705-powys_1120",
+          "modbus_addr": 29,
+          "unique_id": 11068,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso07-depto_706-powys_1120",
+          "modbus_addr": 30,
+          "unique_id": 11069,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso07-depto_707-powys_1120",
+          "modbus_addr": 31,
+          "unique_id": 11070,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso07-depto_708-powys_1120",
+          "modbus_addr": 32,
+          "unique_id": 11071,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso07-depto_709-powys_1120",
+          "modbus_addr": 33,
+          "unique_id": 11072,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso07-depto_710-powys_1120",
+          "modbus_addr": 34,
+          "unique_id": 11073,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso07-depto_711-powys_1120",
+          "modbus_addr": 35,
+          "unique_id": 11074,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso07-depto_712-powys_1120",
+          "modbus_addr": 36,
+          "unique_id": 11075,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso08-depto_801-powys_1120",
+          "modbus_addr": 37,
+          "unique_id": 11076,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso08-depto_802-powys_1120",
+          "modbus_addr": 38,
+          "unique_id": 11077,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso08-depto_803-powys_1120",
+          "modbus_addr": 39,
+          "unique_id": 11078,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso08-depto_804-powys_1120",
+          "modbus_addr": 40,
+          "unique_id": 11079,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso08-depto_805-powys_1120",
+          "modbus_addr": 41,
+          "unique_id": 11080,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso08-depto_806-powys_1120",
+          "modbus_addr": 42,
+          "unique_id": 11081,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso08-depto_807-powys_1120",
+          "modbus_addr": 43,
+          "unique_id": 11082,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso08-depto_808-powys_1120",
+          "modbus_addr": 44,
+          "unique_id": 11083,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso08-depto_809-powys_1120",
+          "modbus_addr": 45,
+          "unique_id": 11084,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso08-depto_810-powys_1120",
+          "modbus_addr": 46,
+          "unique_id": 11085,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso08-depto_811-powys_1120",
+          "modbus_addr": 47,
+          "unique_id": 11086,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso08-depto_812-powys_1120",
+          "modbus_addr": 48,
+          "unique_id": 11087,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        }
+      ]
+    },
+    "ETOR CADAII 09": {
+      "enable": true,
+      "addr": "192.168.20.13",
+      "port": 502,
+      "devices": [
+        {
+          "enable": true,
+          "description": "cda2_piso09-depto_901-powys_1120",
+          "modbus_addr": 1,
+          "unique_id": 11088,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso09-depto_902-powys_1120",
+          "modbus_addr": 2,
+          "unique_id": 11089,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso09-depto_903-powys_1120",
+          "modbus_addr": 3,
+          "unique_id": 11090,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso09-depto_904-powys_1120",
+          "modbus_addr": 4,
+          "unique_id": 11091,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso09-depto_905-powys_1120",
+          "modbus_addr": 5,
+          "unique_id": 11092,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso09-depto_906-powys_1120",
+          "modbus_addr": 6,
+          "unique_id": 11093,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso09-depto_907-powys_1120",
+          "modbus_addr": 7,
+          "unique_id": 11094,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso09-depto_908-powys_1120",
+          "modbus_addr": 8,
+          "unique_id": 11095,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso09-depto_909-powys_1120",
+          "modbus_addr": 9,
+          "unique_id": 11096,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso09-depto_910-powys_1120",
+          "modbus_addr": 10,
+          "unique_id": 11097,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso09-depto_911-powys_1120",
+          "modbus_addr": 11,
+          "unique_id": 11098,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso09-depto_912-powys_1120",
+          "modbus_addr": 12,
+          "unique_id": 11099,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso10-depto_1001-powys_1120",
+          "modbus_addr": 13,
+          "unique_id": 11100,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso10-depto_1002-powys_1120",
+          "modbus_addr": 14,
+          "unique_id": 11101,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso10-depto_1003-powys_1120",
+          "modbus_addr": 15,
+          "unique_id": 11102,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso10-depto_1004-powys_1120",
+          "modbus_addr": 16,
+          "unique_id": 11103,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso10-depto_1005-powys_1120",
+          "modbus_addr": 17,
+          "unique_id": 11104,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso10-depto_1006-powys_1120",
+          "modbus_addr": 18,
+          "unique_id": 11105,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso10-depto_1007-powys_1120",
+          "modbus_addr": 19,
+          "unique_id": 11106,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso10-depto_1008-powys_1120",
+          "modbus_addr": 20,
+          "unique_id": 11107,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso10-depto_1009-powys_1120",
+          "modbus_addr": 21,
+          "unique_id": 11108,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso10-depto_1010-powys_1120",
+          "modbus_addr": 22,
+          "unique_id": 11109,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso10-depto_1011-powys_1120",
+          "modbus_addr": 23,
+          "unique_id": 11110,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso10-depto_1012-powys_1120",
+          "modbus_addr": 24,
+          "unique_id": 11111,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso11-depto_1101-powys_1120",
+          "modbus_addr": 25,
+          "unique_id": 11112,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso11-depto_1102-powys_1120",
+          "modbus_addr": 26,
+          "unique_id": 11113,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso11-depto_1103-powys_1120",
+          "modbus_addr": 27,
+          "unique_id": 11114,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso11-depto_1104-powys_1120",
+          "modbus_addr": 28,
+          "unique_id": 11115,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso11-depto_1105-powys_1120",
+          "modbus_addr": 29,
+          "unique_id": 11116,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso11-depto_1106-powys_1120",
+          "modbus_addr": 30,
+          "unique_id": 11117,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso11-depto_1107-powys_1120",
+          "modbus_addr": 31,
+          "unique_id": 11118,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso11-depto_1108-powys_1120",
+          "modbus_addr": 32,
+          "unique_id": 11119,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso11-depto_1109-powys_1120",
+          "modbus_addr": 33,
+          "unique_id": 11120,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso11-depto_1110-powys_1120",
+          "modbus_addr": 34,
+          "unique_id": 11121,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso11-depto_1111-powys_1120",
+          "modbus_addr": 35,
+          "unique_id": 11122,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso11-depto_1112-powys_1120",
+          "modbus_addr": 36,
+          "unique_id": 11123,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso12-depto_1201-powys_1120",
+          "modbus_addr": 37,
+          "unique_id": 11124,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso12-depto_1202-powys_1120",
+          "modbus_addr": 38,
+          "unique_id": 11125,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso12-depto_1203-powys_1120",
+          "modbus_addr": 39,
+          "unique_id": 11126,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso12-depto_1204-powys_1120",
+          "modbus_addr": 40,
+          "unique_id": 11127,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso12-depto_1205-powys_1120",
+          "modbus_addr": 41,
+          "unique_id": 11128,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso12-depto_1206-powys_1120",
+          "modbus_addr": 42,
+          "unique_id": 11129,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso12-depto_1207-powys_1120",
+          "modbus_addr": 43,
+          "unique_id": 11130,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso12-depto_1208-powys_1120",
+          "modbus_addr": 44,
+          "unique_id": 11131,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso12-depto_1209-powys_1120",
+          "modbus_addr": 45,
+          "unique_id": 11132,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso12-depto_1210-powys_1120",
+          "modbus_addr": 46,
+          "unique_id": 11133,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso12-depto_1211-powys_1120",
+          "modbus_addr": 47,
+          "unique_id": 11134,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso12-depto_1212-powys_1120",
+          "modbus_addr": 48,
+          "unique_id": 11135,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        }
+      ]
+    },
+    "ETOR CADAII 13": {
+      "enable": true,
+      "addr": "192.168.20.14",
+      "port": 502,
+      "devices": [
+        {
+          "enable": true,
+          "description": "cda2_piso13-depto_1301-powys_1120",
+          "modbus_addr": 1,
+          "unique_id": 11136,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso13-depto_1302-powys_1120",
+          "modbus_addr": 2,
+          "unique_id": 11137,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso13-depto_1303-powys_1120",
+          "modbus_addr": 3,
+          "unique_id": 11138,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso13-depto_1304-powys_1120",
+          "modbus_addr": 4,
+          "unique_id": 11139,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso13-depto_1305-powys_1120",
+          "modbus_addr": 5,
+          "unique_id": 11140,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso13-depto_1306-powys_1120",
+          "modbus_addr": 6,
+          "unique_id": 11141,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso13-depto_1307-powys_1120",
+          "modbus_addr": 7,
+          "unique_id": 11142,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso13-depto_1308-powys_1120",
+          "modbus_addr": 8,
+          "unique_id": 11143,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso13-depto_1309-powys_1120",
+          "modbus_addr": 9,
+          "unique_id": 11144,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso13-depto_1310-powys_1120",
+          "modbus_addr": 10,
+          "unique_id": 11145,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso13-depto_1311-powys_1120",
+          "modbus_addr": 11,
+          "unique_id": 11146,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso13-depto_1312-powys_1120",
+          "modbus_addr": 12,
+          "unique_id": 11147,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso14-depto1401-powys_1120",
+          "modbus_addr": 13,
+          "unique_id": 11148,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso14-depto1402-powys_1120",
+          "modbus_addr": 14,
+          "unique_id": 11149,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso14-depto1403-powys_1120",
+          "modbus_addr": 15,
+          "unique_id": 11150,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso14-depto1404-powys_1120",
+          "modbus_addr": 16,
+          "unique_id": 11151,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso14-depto1405-powys_1120",
+          "modbus_addr": 17,
+          "unique_id": 11152,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso14-depto1406-powys_1120",
+          "modbus_addr": 18,
+          "unique_id": 11153,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso14-depto1407-powys_1120",
+          "modbus_addr": 19,
+          "unique_id": 11154,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso14-depto1408-powys_1120",
+          "modbus_addr": 20,
+          "unique_id": 11155,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso14-depto1409-powys_1120",
+          "modbus_addr": 21,
+          "unique_id": 11156,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso14-depto1410-powys_1120",
+          "modbus_addr": 22,
+          "unique_id": 11157,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso14-depto1411-powys_1120",
+          "modbus_addr": 23,
+          "unique_id": 11158,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso14-depto_1412-powys_1120",
+          "modbus_addr": 24,
+          "unique_id": 11159,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso15-depto_1501-powys_1120",
+          "modbus_addr": 25,
+          "unique_id": 11160,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso15-depto_1502-powys_1120",
+          "modbus_addr": 26,
+          "unique_id": 11161,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso15-depto_1503-powys_1120",
+          "modbus_addr": 27,
+          "unique_id": 11162,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso15-depto_1504-powys_1120",
+          "modbus_addr": 28,
+          "unique_id": 11163,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso15-depto_1505-powys_1120",
+          "modbus_addr": 29,
+          "unique_id": 11164,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso15-depto_1506-powys_1120",
+          "modbus_addr": 30,
+          "unique_id": 11165,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso15-depto_1507-powys_1120",
+          "modbus_addr": 31,
+          "unique_id": 11166,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso15-depto_1508-powys_1120",
+          "modbus_addr": 32,
+          "unique_id": 11167,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso15-depto_1509-powys_1120",
+          "modbus_addr": 33,
+          "unique_id": 11168,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso15-depto_1510-powys_1120",
+          "modbus_addr": 34,
+          "unique_id": 11169,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso15-depto_1511-powys_1120",
+          "modbus_addr": 35,
+          "unique_id": 11170,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso15-depto_1512-powys_1120",
+          "modbus_addr": 36,
+          "unique_id": 11171,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso16-depto_1601-powys_1120",
+          "modbus_addr": 37,
+          "unique_id": 11172,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso16-depto_1602-powys_1120",
+          "modbus_addr": 38,
+          "unique_id": 11173,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso16-depto_1603-powys_1120",
+          "modbus_addr": 39,
+          "unique_id": 11174,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso16-depto_1604-powys_1120",
+          "modbus_addr": 40,
+          "unique_id": 11175,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso16-depto_1605-powys_1120",
+          "modbus_addr": 41,
+          "unique_id": 11176,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso16-depto_1606-powys_1120",
+          "modbus_addr": 42,
+          "unique_id": 11177,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso16-depto_1607-powys_1120",
+          "modbus_addr": 43,
+          "unique_id": 11178,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso16-depto_1608-powys_1120",
+          "modbus_addr": 44,
+          "unique_id": 11179,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso16-depto_1609-powys_1120",
+          "modbus_addr": 45,
+          "unique_id": 11180,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso16-depto_1610-powys_1120",
+          "modbus_addr": 46,
+          "unique_id": 11181,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso16-depto_1611-powys_1120",
+          "modbus_addr": 47,
+          "unique_id": 11182,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso16-depto_1612-powys_1120",
+          "modbus_addr": 48,
+          "unique_id": 11183,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        }
+      ]
+    },
+    "ETOR CADAII 17": {
+      "enable": true,
+      "addr": "192.168.20.15",
+      "port": 502,
+      "devices": [
+        {
+          "enable": true,
+          "description": "cda2_piso17-depto_1701-powys_1120",
+          "modbus_addr": 1,
+          "unique_id": 11184,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso17-depto_1702-powys_1120",
+          "modbus_addr": 2,
+          "unique_id": 11185,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso17-depto_1703-powys_1120",
+          "modbus_addr": 3,
+          "unique_id": 11186,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso17-depto_1704-powys_1120",
+          "modbus_addr": 4,
+          "unique_id": 11187,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso17-depto_1705-powys_1120",
+          "modbus_addr": 5,
+          "unique_id": 11188,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso17-depto_1706-powys_1120",
+          "modbus_addr": 6,
+          "unique_id": 11189,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso17-depto_1707-powys_1120",
+          "modbus_addr": 7,
+          "unique_id": 11190,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso17-depto_1708-powys_1120",
+          "modbus_addr": 8,
+          "unique_id": 11191,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso17-depto_1709-powys_1120",
+          "modbus_addr": 9,
+          "unique_id": 11192,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso17-depto_1710-powys_1120",
+          "modbus_addr": 10,
+          "unique_id": 11193,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso17-depto_1711-powys_1120",
+          "modbus_addr": 11,
+          "unique_id": 11194,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso17-depto_1712-powys_1120",
+          "modbus_addr": 12,
+          "unique_id": 11195,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso18-depto_1801-powys_1120",
+          "modbus_addr": 13,
+          "unique_id": 11196,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso18-depto_1802-powys_1120",
+          "modbus_addr": 14,
+          "unique_id": 11197,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso18-depto_1803-powys_1120",
+          "modbus_addr": 15,
+          "unique_id": 11198,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso18-depto_1804-powys_1120",
+          "modbus_addr": 16,
+          "unique_id": 11199,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso18-depto_1805-powys_1120",
+          "modbus_addr": 17,
+          "unique_id": 11200,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso18-depto_1806-powys_1120",
+          "modbus_addr": 18,
+          "unique_id": 11201,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso18-depto_1807-powys_1120",
+          "modbus_addr": 19,
+          "unique_id": 11202,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso18-depto_1808-powys_1120",
+          "modbus_addr": 20,
+          "unique_id": 11203,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso18-depto_1809-powys_1120",
+          "modbus_addr": 21,
+          "unique_id": 11204,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso18-depto_1810-powys_1120",
+          "modbus_addr": 22,
+          "unique_id": 11205,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso18-depto_1811-powys_1120",
+          "modbus_addr": 23,
+          "unique_id": 11206,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso18-depto_1812-powys_1120",
+          "modbus_addr": 24,
+          "unique_id": 11207,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso19-depto_1901-powys_1120",
+          "modbus_addr": 25,
+          "unique_id": 11208,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso19-depto_1902-powys_1120",
+          "modbus_addr": 26,
+          "unique_id": 11209,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso19-depto_1903-powys_1120",
+          "modbus_addr": 27,
+          "unique_id": 11210,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso19-depto_1904-powys_1120",
+          "modbus_addr": 28,
+          "unique_id": 11211,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso19-depto_1905-powys_1120",
+          "modbus_addr": 29,
+          "unique_id": 11212,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso19-depto_1906-powys_1120",
+          "modbus_addr": 30,
+          "unique_id": 11213,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso19-depto_1907-powys_1120",
+          "modbus_addr": 31,
+          "unique_id": 11214,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso19-depto_1908-powys_1120",
+          "modbus_addr": 32,
+          "unique_id": 11215,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso19-depto_1909-powys_1120",
+          "modbus_addr": 33,
+          "unique_id": 11216,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso19-depto_1910-powys_1120",
+          "modbus_addr": 34,
+          "unique_id": 11217,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso19-depto_1911-powys_1120",
+          "modbus_addr": 35,
+          "unique_id": 11218,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso19-depto_1912-powys_1120",
+          "modbus_addr": 36,
+          "unique_id": 11219,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso20-depto_2001-powys_1120",
+          "modbus_addr": 37,
+          "unique_id": 11220,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso20-depto_2002-powys_1120",
+          "modbus_addr": 38,
+          "unique_id": 11221,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso20-depto_2003-powys_1120",
+          "modbus_addr": 39,
+          "unique_id": 11222,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso20-depto_2004-powys_1120",
+          "modbus_addr": 40,
+          "unique_id": 11223,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso20-depto_2005-powys_1120",
+          "modbus_addr": 41,
+          "unique_id": 11224,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso20-depto_2006-powys_1120",
+          "modbus_addr": 42,
+          "unique_id": 11225,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso20-depto_2007-powys_1120",
+          "modbus_addr": 43,
+          "unique_id": 11226,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso20-depto_2008-powys_1120",
+          "modbus_addr": 44,
+          "unique_id": 11227,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso20-depto_2009-powys_1120",
+          "modbus_addr": 45,
+          "unique_id": 11228,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso20-depto_2010-powys_1120",
+          "modbus_addr": 46,
+          "unique_id": 11229,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso20-depto_2011-powys_1120",
+          "modbus_addr": 47,
+          "unique_id": 11230,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso20-depto_2012-powys_1120",
+          "modbus_addr": 48,
+          "unique_id": 11231,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        }
+      ]
+    },
+    "ETOR CADAII 21-1": {
+      "enable": true,
+      "addr": "192.168.20.16",
+      "port": 502,
+      "devices": [
+        {
+          "enable": true,
+          "description": "cda2_piso21-depto_2101-powys_1120",
+          "modbus_addr": 1,
+          "unique_id": 11232,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso21-depto_2102-powys_1120",
+          "modbus_addr": 2,
+          "unique_id": 11233,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso21-depto_2103-powys_1120",
+          "modbus_addr": 3,
+          "unique_id": 11234,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso21-depto_2104-powys_1120",
+          "modbus_addr": 4,
+          "unique_id": 11235,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso21-depto_2105-powys_1120",
+          "modbus_addr": 5,
+          "unique_id": 11236,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso21-depto_2106-powys_1120",
+          "modbus_addr": 6,
+          "unique_id": 11237,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso21-depto_2107-powys_1120",
+          "modbus_addr": 7,
+          "unique_id": 11238,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso21-depto_2108-powys_1120",
+          "modbus_addr": 8,
+          "unique_id": 11239,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso21-depto_2109-powys_1120",
+          "modbus_addr": 9,
+          "unique_id": 11240,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso21-depto_2110-powys_1120",
+          "modbus_addr": 10,
+          "unique_id": 11241,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso21-depto_2111-powys_1120",
+          "modbus_addr": 11,
+          "unique_id": 11242,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso21-depto_2112-powys_1120",
+          "modbus_addr": 12,
+          "unique_id": 11243,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso22-depto_2201-powys_1120",
+          "modbus_addr": 13,
+          "unique_id": 11244,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso22-depto_2202-powys_1120",
+          "modbus_addr": 14,
+          "unique_id": 11245,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso22-depto_2203-powys_1120",
+          "modbus_addr": 15,
+          "unique_id": 11246,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso22-depto_2204-powys_1120",
+          "modbus_addr": 16,
+          "unique_id": 11247,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso22-depto_2205-powys_1120",
+          "modbus_addr": 17,
+          "unique_id": 11248,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso22-depto_2206-powys_1120",
+          "modbus_addr": 18,
+          "unique_id": 11249,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso22-depto_2207-powys_1120",
+          "modbus_addr": 19,
+          "unique_id": 11250,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso22-depto_2208-powys_1120",
+          "modbus_addr": 20,
+          "unique_id": 11251,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso22-depto_2209-powys_1120",
+          "modbus_addr": 21,
+          "unique_id": 11252,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso22-depto_2210-powys_1120",
+          "modbus_addr": 22,
+          "unique_id": 11253,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso22-depto_2211-powys_1120",
+          "modbus_addr": 23,
+          "unique_id": 11254,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso22-depto_2212-powys_1120",
+          "modbus_addr": 24,
+          "unique_id": 11255,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        }
+      ]
+    },
+    "ETOR CADAII 21-2": {
+      "enable": true,
+      "addr": "192.168.20.17",
+      "port": 502,
+      "devices": [
+        {
+          "enable": true,
+          "description": "cda2_piso23-depto_2301-powys_1120",
+          "modbus_addr": 1,
+          "unique_id": 11256,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso23-depto_2302-powys_1120",
+          "modbus_addr": 2,
+          "unique_id": 11257,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso23-depto_2303-powys_1120",
+          "modbus_addr": 3,
+          "unique_id": 11258,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso23-depto_2304-powys_1120",
+          "modbus_addr": 4,
+          "unique_id": 11259,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso23-depto_2305-powys_1120",
+          "modbus_addr": 5,
+          "unique_id": 11260,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso23-depto_2306-powys_1120",
+          "modbus_addr": 6,
+          "unique_id": 11261,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso23-depto_2307-powys_1120",
+          "modbus_addr": 7,
+          "unique_id": 11262,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso23-depto_2308-powys_1120",
+          "modbus_addr": 8,
+          "unique_id": 11263,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso23-depto_2309-powys_1120",
+          "modbus_addr": 9,
+          "unique_id": 11264,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso23-depto_2310-powys_1120",
+          "modbus_addr": 10,
+          "unique_id": 11265,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso23-depto_2311-powys_1120",
+          "modbus_addr": 11,
+          "unique_id": 11266,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso23-depto_2312-powys_1120",
+          "modbus_addr": 12,
+          "unique_id": 11267,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-depto_2401-powys_1120",
+          "modbus_addr": 14,
+          "unique_id": 11268,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-depto_2402-powys_1120",
+          "modbus_addr": 15,
+          "unique_id": 11269,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-depto_2403-powys_1120",
+          "modbus_addr": 16,
+          "unique_id": 11270,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-depto_2404-powys_1120",
+          "modbus_addr": 17,
+          "unique_id": 11271,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-depto_2405-powys_1120",
+          "modbus_addr": 18,
+          "unique_id": 11272,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-depto_2406-powys_1120",
+          "modbus_addr": 19,
+          "unique_id": 11273,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-depto_2407-powys_1120",
+          "modbus_addr": 20,
+          "unique_id": 11274,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-depto_2408-powys_1120",
+          "modbus_addr": 21,
+          "unique_id": 11275,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-depto_2409-powys_1120",
+          "modbus_addr": 22,
+          "unique_id": 11276,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-depto_2410-powys_1120",
+          "modbus_addr": 23,
+          "unique_id": 11277,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-depto_2411-powys_1120",
+          "modbus_addr": 24,
+          "unique_id": 11278,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-depto_2412-powys_1120",
+          "modbus_addr": 25,
+          "unique_id": 11279,
+          "reading": "lectura_monofasico",
+          "driver": "eliot.drivers.klemsan.Powys1120"
+        },
+        {
+          "enable": true,
+          "description": "cda2_piso24-servicios_comunes-powys_3101",
+          "modbus_addr": 1,
+          "unique_id": 12000,
+          "reading": "lectura_trifasico",
+          "driver": "eliot.drivers.klemsan.Powys3122"
+        }
+      ]
+    }
+  }
+}

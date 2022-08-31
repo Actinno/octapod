@@ -1,0 +1,10 @@
+{
+    "handler": "stream",
+    "level": "INFO",
+    "logdir": "/var/log/minieliot",
+    "logfile": "minieliot.log",
+    "max_backup": 30,
+    "rotate_max_bytes": 10240,
+    "rotate_when": "D",
+    "rotate_interval": 1
+}

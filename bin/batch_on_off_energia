@@ -1,0 +1,68 @@
+#!/opt/minieliot/bin/python3
+
+import sys
+import os
+import os.path
+from eliot.logging.basic import log
+from eliot.config import config
+from eliot.component.ModbusGateway import ModbusGateway
+from eliot.util.file import load_json_file
+
+on_off_file = "/var/minieliot/on_off/batch_on_off_energia.json"
+
+def run_on_off():
+    try:
+        on_off_config = load_json_file(on_off_file)
+    except Exception as e:
+        log.error(f"Error leyendo el archivo de configuración de ON/OFF: {e}")
+        sys.exit(1)
+
+    device_state = {}
+
+    for dev in on_off_config.get("devices"):
+        uid = dev['unique_id']
+        device_state[uid] = dev['on_state']
+
+    for gw in config.gateways:
+        log.info(f"Procesando dispositivos de gateway {gw.name}")
+        mgw = ModbusGateway(gw.name, gw.addr, gw.port)
+
+        # De todos los dispositivos registrados para el gateway
+        # en la configuración de miniEliot, sólo agrego los que 
+        # están especificados en la configuración de ON/OFF
+        for d in gw.devices:
+            if d.unique_id in device_state.keys():
+                mgw.add_device(d)
+
+        mgw.connect()
+        error = False
+        for d in mgw.devices:
+            if hasattr(d, 'on_off') and callable(d.on_off):
+                try:
+                    on_state = device_state[d.unique_id]
+                    d.on_off(on_state)
+                except Exception as e:
+                    error = True
+                    log.error(f"Error configurando estado {on_state} en dispositivo con unique_id {d.unique_id}")
+            else:
+                log.error(f"El driver dispositivo con unique_id {d.unique_id} no tiene el método on_off")
+        mgw.close()
+
+    if not error:
+        log.info(f"Borrando el archivo de instrucciones de corte/habilitación de suministro")
+        try:
+            os.remove(on_off_file)
+        except OSError as e:
+            junk = f"{on_off_file}.junk"
+            log.error(f"No pude borrar el archivo {on_off_file}. Intentando renombrarlo como {junk}: {e}")
+            try:
+                os.rename(on_off_file, junk)
+            except OSError as e:
+                log.error(f"Pfff.. tampoco pude: {e}")
+
+if __name__ == "__main__":
+    if os.path.exists(on_off_file) and os.path.isfile(on_off_file):
+        run_on_off()
+    else:
+        log.info(f"No existe el archivo {on_off_file}, nada que hacer")
+

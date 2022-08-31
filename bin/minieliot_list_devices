@@ -1,0 +1,50 @@
+#!/opt/minieliot/bin/python3
+
+import getopt
+import sys
+from eliot.util.file import load_json_file
+
+def usage():
+    print(f"minieliot_list_devices [--config=<file>] [--desc=D101] [--help]")
+
+def main():
+    desc = ""
+    json_file = "/etc/minieliot/config.json"
+
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "hcd:v", ["help", "config=", "desc="])
+    except getopt.GetoptError as err:
+        # print help information and exit:
+        print(err)  # will print something like "option -a not recognized"
+        usage()
+        sys.exit(2)
+    output = None
+    verbose = False
+    for o, a in opts:
+        if o == "-v":
+            verbose = True
+        elif o in ("-h", "--help"):
+            usage()
+            sys.exit()
+        elif o in ("-c", "--config"):
+            json_file = a
+        elif o in ("-d", "--desc"):
+            desc = a
+        else:
+            assert False, "unhandled option"
+
+    jsonConfig = load_json_file(json_file)
+
+    for gw in jsonConfig["gateways"]:
+        devices = jsonConfig["gateways"][gw]["devices"]
+        for device in devices:
+            description = device["description"]
+            unique_id = device["unique_id"]
+            driver = device["driver"]
+            if len(desc) > 0 and desc in description:
+                print(f"[{gw}]: description: {description} unique_id: {unique_id} driver: {driver}")
+            elif len(desc) == 0:
+                print(f"[{gw}]: description: {description} unique_id: {unique_id} driver: {driver}")
+
+if __name__ == "__main__":
+    main()

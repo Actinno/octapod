@@ -1,0 +1,29 @@
+#!/bin/bash
+
+RANGE=$(seq 1 4 | tac)
+ERROR_MSG='Error de lectura de dispositivo'
+
+for HR in ${RANGE}
+do
+    HR_MINUS_ONE=$(expr ${HR} - 1)
+    SINCE=$(date -d "${HR} hour ago" "+%Y-%m-%d %H:%M:%S")
+    UNTIL=$(date -d "${HR_MINUS_ONE} hour ago" "+%Y-%m-%d %H:%M:%S")
+
+    echo "##### Dispositivos con errores de lectura hace ${HR} horas atrás #####"
+    echo "Unique ID | Errors"
+    echo "----------|--------"
+    LOGS=$(sudo journalctl -u minieliot -S "${SINCE}" -U "${UNTIL}" | grep "${ERROR_MSG}")
+
+    if [ ! -z "${LOGS}" ]
+    then
+        echo "${LOGS}" | \
+	awk '{print $14}' | \
+	sort | \
+	uniq -c | \
+	sed -e 's/^\(.*\) \[\(.*\)\]:/    \2 | \1/'
+    else
+        echo "     N/A  |     N/A"
+    fi
+    echo
+done
+

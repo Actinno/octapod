@@ -1,0 +1,133 @@
+#!/opt/minieliot/bin/python3
+
+import sys
+import getopt
+import json
+from datetime import datetime
+from eliot.config import config
+from eliot.component.ModbusDevice import *
+from eliot.component.ModbusGateway import *
+
+class device(object):
+    def __init__(self, driver, modbus_addr, unique_id, hr_readings, description ):
+        self.enable = True
+        self.driver = driver
+        self.unique_id = unique_id
+        self.modbus_addr = modbus_addr
+        self.hr_readings = hr_readings
+        self.description = description
+
+def usage(err=None):
+    if err is not None:
+        print(f"\nERROR: {err}\n")
+    print(f"USO: {sys.argv[0]} [--gateway-addr=IP] [--gateway-name=NAME] [--index-by-addr]")
+    sys.exit(1)
+
+def do_block_read(device):
+    record = device.block_read_decode_all()
+    return record
+
+def read_devices(gateway_name, gateway_addr, index):
+    if gateway_name is None and gateway_addr is None:
+        scan_all_gateways = True
+    else:
+        scan_all_gateways = False
+
+    gateways = dict()
+    for gw in config.gateways:
+        if not scan_all_gateways:
+            if gateway_addr != gw.addr and gateway_name != gw.name:
+                log.info(f"Ignorando gateway {gw.name}")
+                continue
+
+        gateways[gw.name] = ModbusGateway(gw.name, gw.addr, gw.port)
+        for d in gw.devices:
+            dev = device(
+                d.driver,
+                d.modbus_addr,
+                d.unique_id,
+                d.hr_readings,
+                d.description
+            )
+            gateways[gw.name].add_device(dev)
+
+    if len(gateways) == 0:
+        log.error(f"El gateway seleccionado no está definido en la configuración")
+        sys.exit(1)
+
+    result = dict()
+
+    for gw in gateways.values():
+        result[gw.name] = dict()
+        gw.connect()
+        for d in gw.devices:
+            device_info = dict()
+            device_status = None
+            try:
+                device_info['model'] = d.model
+                device_info['addr'] = d.addr
+                device_info['unique_id'] = d.unique_id
+                device_info['description'] = d.description
+                t0 = time.time()
+                readed_values = do_block_read(d)
+                t1 = time.time() - t0
+
+                if len(readed_values) == 0:
+                    device_status = "Error de lectura"
+                else:
+                    if verbose:
+                        device_info['reading_time'] = t1
+                        device_status = "OK"
+                    else:
+                        device_status = f"OK - Tiempo de lectura: {t1} segundos"
+            except Exception as e:
+                device_status = str(e)
+
+            if index == "addr":
+                dev_index = d.addr
+            else:
+                dev_index = d.unique_id
+
+            if verbose:
+                result[gw.name][dev_index] = device_info
+                result[gw.name][dev_index]['status'] = device_status
+            else:
+                result[gw.name][dev_index] = device_status
+        gw.close()
+    print(json.dumps(result, indent=4, sort_keys=True))
+
+if __name__ == "__main__":
+    try:
+        short_opts = "ha:n:vuA"
+        long_opts = ["help", "gateway-addr=","gateway-name=", "verbose", "index-by-addr"]
+        opts, args = getopt.getopt(sys.argv[1:], short_opts, long_opts)
+    except getopt.GetoptError as err:
+        usage(err)
+
+    gateway_addr = None
+    gateway_name = None
+    index = None
+    verbose = False
+
+    for o, a in opts:
+        if o in ("-h", "--help"):
+            usage()
+        elif o in ("-a", "--gateway-addr"):
+            gateway_addr = a
+        elif o in ("-n", "--gateway-name"):
+            gateway_name = a
+        elif o in ("-A", "--index-by-addr"):
+            index = "addr"
+        elif o in ("-v", "--verbose"):
+            verbose = True
+
+    if gateway_addr is not None and gateway_name is not None:
+        usage("Sólo debe especificar el nombre del gateway o su dirección, no ambos.")
+
+    if verbose:
+        log.setLevel("INFO")
+    else:
+        log.setLevel("CRITICAL")
+
+    read_devices(gateway_name, gateway_addr, index)
+

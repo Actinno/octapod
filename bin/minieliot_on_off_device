@@ -1,0 +1,82 @@
+#!/opt/minieliot/bin/python3
+
+import getopt
+import sys
+from distutils.util import strtobool
+from eliot.config import config
+from eliot.util.file import load_json_file
+from eliot.component.ModbusGateway import ModbusGateway
+
+def usage(err):
+    if err is not None:
+        print(f"ERROR: {err}\n")
+    print(f"minieliot_on_off_device --unique_id <id> --state <on|off>")
+    sys.exit(1)
+
+def find_device_cfg(unique_id):
+    result = {}
+    for gw in config.gateways:
+        for dev in gw.devices:
+            if str(dev.unique_id) == str(unique_id):
+                result['gw']  = gw
+                result['dev'] = dev
+                return result
+    return None
+
+def change_state(unique_id, on_state):
+    cfg = find_device_cfg(unique_id)
+
+    if cfg == None:
+        print(f"No pude encontrar una configuración de dispositivo con unique_id={unique_id}")
+        sys.exit(2)
+
+    print(f"GW Connect: {cfg['gw'].addr}:{cfg['gw'].port}")
+    mgw = ModbusGateway(cfg['gw'].name, cfg['gw'].addr, cfg['gw'].port)
+    mgw.add_device(cfg['dev'])
+
+    mgw.connect()
+    for d in mgw.devices:
+        if hasattr(d, 'on_off') and callable(d.on_off):
+            d.on_off(on_state)
+        else:
+            print(f"El driver dispositivo con unique_id {d.unique_id} no tiene el método on_off")
+    mgw.close()
+
+if __name__ == "__main__":
+    verbose = False
+    unique_id = None
+    state = ""
+
+    try:
+        opts, args = getopt.getopt(sys.argv[1:], "chs:u:v", ["help", "state=", "unique_id="])
+    except getopt.GetoptError as err:
+        usage(err)
+
+    for o, a in opts:
+        if o == "-v":
+            verbose = True
+        elif o in ("-h", "--help"):
+            usage()
+            sys.exit()
+        elif o in ("-s", "--state"):
+            state = a
+        elif o in ("-u", "--unique_id"):
+            unique_id = a
+        else:
+            usage(f"{o} es una opción inválida")
+
+    if unique_id == None:
+        usage("Debe especificar el unique_id del dispositivo ON/OFF")
+
+    if state.lower() == "on":
+        on_state = True
+    elif state.lower() == "off":
+        on_state = False
+    else:
+        usage(f"'{state}' no es un valor válido de state")
+
+    try:
+        change_state(unique_id, on_state)
+    except Exception as ex:
+        print(f"Error: {ex}")
+

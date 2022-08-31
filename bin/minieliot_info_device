@@ -1,0 +1,46 @@
+#!/opt/minieliot/bin/python3
+
+import sys
+from eliot.util.file import load_json_file
+import json
+
+def usage():
+    print(f"minieliot_info_device unique_id")
+
+def main(unique_id):
+    if unique_id == None:
+        usage()
+        sys.exit(0)
+
+    json_file = "/etc/minieliot/config.json"
+    jsonConfig = load_json_file(json_file)
+
+    for gw in jsonConfig["gateways"]:
+        gw_name = gw
+        gw_enable = jsonConfig["gateways"][gw]["enable"]
+        gw_addr = jsonConfig["gateways"][gw]["addr"]
+        gw_port = jsonConfig["gateways"][gw]["port"]
+        devices = jsonConfig["gateways"][gw]["devices"]
+        for device in devices:
+            result = {}
+            #print(f"{unique_id} {device['unique_id']}")
+            if str(unique_id) == str(device["unique_id"]):
+                modbus_addr = device["modbus_addr"]
+                description = device["description"]
+                driver = device["driver"]
+
+                result["unique_id"] = unique_id
+                result["gw_name"] = gw_name
+                result["gw_enable"] = gw_enable
+                result["gw_addr"] = gw_addr
+                result["gw_port"] = gw_port
+                result["driver"] = driver
+                result["modbus_addr"] = modbus_addr
+                result["description"] = description
+
+                #print(f"{unique_id} GW_NAME:{gw_name} GW_ENABLE:{gw_enable} IP:{gw_addr} PORT:{gw_port} MODBUS_ADDR:{modbus_addr} DRIVER:{driver} DESC:{description}")
+                print(json.dumps(result, indent=4, sort_keys=True))
+                sys.exit(0)
+
+if __name__ == "__main__":
+    main(sys.argv[1])

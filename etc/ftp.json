@@ -1,0 +1,108 @@
+{
+    "ftp_servers": [
+        {
+            "host": "ftp.emoac.cl",
+            "port": 10021,
+            "user": "gateway_317",
+            "pass": "tTNHTQkwDBJbKJis",
+	    "passive": true,
+            "upload_consumo": true,
+            "upload_fact": false,
+            "remote_dir_consumo": "COMX",
+            "remote_dir_fact": "/",
+            "local_dir_consumo": "/var/minieliot/report/consumo/192.168.20.10",
+            "local_dir_fact": "/var/minieliot/report/facturacion"
+        },
+        {
+            "host": "ftp.emoac.cl",
+            "port": 10021,
+            "user": "gateway_455",
+            "pass": "t3a6-IvGQOvkWp5W",
+	    "passive": true,
+            "upload_consumo": true,
+            "upload_fact": false,
+            "remote_dir_consumo": "COMX",
+            "remote_dir_fact": "/",
+            "local_dir_consumo": "/var/minieliot/report/consumo/192.168.20.11",
+            "local_dir_fact": "/var/minieliot/report/facturacion"
+        },
+        {
+            "host": "ftp.emoac.cl",
+            "port": 10021,
+            "user": "gateway_456",
+            "pass": "Y0VrRdTsAAdnDvA_",
+	    "passive": true,
+            "upload_consumo": true,
+            "upload_fact": false,
+            "remote_dir_consumo": "COMX",
+            "remote_dir_fact": "/",
+            "local_dir_consumo": "/var/minieliot/report/consumo/192.168.20.12",
+            "local_dir_fact": "/var/minieliot/report/facturacion"
+        },
+        {
+            "host": "ftp.emoac.cl",
+            "port": 10021,
+            "user": "gateway_457",
+            "pass": "29ausblD2_lh87_k",
+	    "passive": true,
+            "upload_consumo": true,
+            "upload_fact": false,
+            "remote_dir_consumo": "COMX",
+            "remote_dir_fact": "/",
+            "local_dir_consumo": "/var/minieliot/report/consumo/192.168.20.13",
+            "local_dir_fact": "/var/minieliot/report/facturacion"
+        },
+        {
+            "host": "ftp.emoac.cl",
+            "port": 10021,
+            "user": "gateway_458",
+            "pass": "eVu_outczs3yTaRv",
+	    "passive": true,
+            "upload_consumo": true,
+            "upload_fact": false,
+            "remote_dir_consumo": "COMX",
+            "remote_dir_fact": "/",
+            "local_dir_consumo": "/var/minieliot/report/consumo/192.168.20.14",
+            "local_dir_fact": "/var/minieliot/report/facturacion"
+        },
+        {
+            "host": "ftp.emoac.cl",
+            "port": 10021,
+            "user": "gateway_459",
+            "pass": "pMAg5mKzXLm1_DJO",
+	    "passive": true,
+            "upload_consumo": true,
+            "upload_fact": false,
+            "remote_dir_consumo": "COMX",
+            "remote_dir_fact": "/",
+            "local_dir_consumo": "/var/minieliot/report/consumo/192.168.20.15",
+            "local_dir_fact": "/var/minieliot/report/facturacion"
+        },
+        {
+            "host": "ftp.emoac.cl",
+            "port": 10021,
+            "user": "gateway_460",
+            "pass": "hi8GXg3LMGokvKq_",
+	    "passive": true,
+            "upload_consumo": true,
+            "upload_fact": false,
+            "remote_dir_consumo": "COMX",
+            "remote_dir_fact": "/",
+            "local_dir_consumo": "/var/minieliot/report/consumo/192.168.20.16",
+            "local_dir_fact": "/var/minieliot/report/facturacion"
+        },
+        {
+            "host": "ftp.emoac.cl",
+            "port": 10021,
+            "user": "gateway_555",
+            "pass": "WtultDuMeTI1umYG",
+	    "passive": true,
+            "upload_consumo": true,
+            "upload_fact": false,
+            "remote_dir_consumo": "COMX",
+            "remote_dir_fact": "/",
+            "local_dir_consumo": "/var/minieliot/report/consumo/192.168.20.17",
+            "local_dir_fact": "/var/minieliot/report/facturacion"
+        }
+    ]
+}

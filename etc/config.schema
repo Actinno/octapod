@@ -1,0 +1,135 @@
+{
+    "$schema":"http://json-schema.org/draft-06/schema#",
+    "$id":"https://example.com/my-schema.json",
+    "title": "Validador de miniEliot",
+    "description": "Esquema para validación de archivo de configuración de miniEliot",
+    "type": "object",
+    "definitions": {
+    },
+    "properties": {
+        "minieliot": {
+            "type": "object",
+            "minProperties": 3,
+	    "additionalProperties": false,
+            "properties": {
+                "version": { "type": "number", "minimum": 1 },
+                "mode": { "type": "string", "enum": [ "local", "remote" ] },
+                "data_dir": { "type": "string", "minimum": 2 },
+		"read_frequency": { "type": "number", "minimum": 1, "maximum": 60 }
+            },
+	    "required": ["version", "mode", "data_dir", "read_frequency" ]
+        },
+	"logging": {
+	    "type": "object",
+	    "minProperties": 1,
+	    "additionalProperties": false,
+	    "properties": {
+		"handler": { "type": "string", "enum": [ "file", "rotating_file", "time_rotating_file", "stream" ] },
+		"level": { "type": "string", "enum": [ "DEBUG", "INFO", "WARNING", "ERROR", "CRITICAL" ] },
+                "logdir": { "type": "string", "minimum": 2 },
+		"logfile": { "type": "string", "minimum": 2 },
+		"max_backup": { "type": "number", "minimum": 1 },
+		"rotate_max_bytes": { "type": "number", "minimum": 10240 },
+		"rotate_when": { "type": "string", "enum": [ "S", "M", "H", "D", "W0", "W1", "W2", "W3", "W4", "W5", "W6", "midnight" ] },
+		"rotate_interval": { "type": "number", "minimum": 1 }
+	    },
+	    "required": [ "handler" ]
+	},
+        "db_config": {
+            "type": "object",
+            "minProperties": 6,
+	    "additionalProperties": false,
+            "properties": {
+                "user": { "type": "string", "minLength": 3 },
+                "pass": { "type": "string", "minLength": 10 },
+                "host": { "type": "string", "minLength": 1, "anyOf": [ {"format": "hostname"}, {"formart": "ipv4"} ] },
+                "port": { "type": "integer", "minimum": 1, "maximum": 65535 },
+                "db": { "type": "string", "minLength": 1 },
+                "schema": { "type": "string", "minLength": 1 } 
+            },
+	    "required": [ "user", "pass", "host", "port", "db", "schema"]
+        },
+        "rest_config": {
+            "type": "object",
+            "minProperties": 3,
+	    "additionalProperties": false,
+            "properties": {
+                "user": { "type": "string", "minLength": 3 },
+                "pass": { "type": "string", "minLength": 10 },
+                "url": { "type": "string", "minLength": 1, "format": "uri" }
+            },
+	    "required": [ "user", "pass", "url" ]
+        },
+        "drivers": {
+            "type": "object",
+            "minProperties": 1,
+            "patternProperties": {
+                ".": {
+                    "type": "object",
+                    "minProperties": 3,
+                    "additionalProperties": false,
+                    "properties": {
+                        "file": { "type": "string", "minLength": 0 },
+                        "hr_readings": {
+                            "type": "object",
+                            "minProperties": 1,
+                            "patternProperties": {
+                                 ".": {
+                                     "type": "array",
+                                     "minItems": 1,
+			             "items": { "type": "string", "minLength": 1 }
+                                 }
+                             }
+                         },
+                         "model": { "type": "string", "minLength": 1 }
+                    },
+                    "required": [ "file", "hr_readings", "model" ]
+                }
+            }
+        },
+        "gateways": {
+            "type": "object",
+            "minProperties": 1,
+            "patternProperties": {
+                ".": {
+                    "type": "object",
+                    "minProperties": 4,
+		    "additionalProperties": false,
+                    "properties": {
+                        "enable": { "type": "boolean" },
+                        "addr": { "type": "string", "minLength": 1, "formart": "ipv4" },
+                        "port": { "type": "integer", "minimum": 1, "maximum": 65535 },
+                        "devices": {
+                            "type": "array",
+                            "minItems": 1,
+                            "items": {
+				"type": "object",
+				"minProperties": 6,
+	                        "additionalProperties": false,
+				"properties": {
+                                    "enable": { "type": "boolean" },
+                                    "description": { "type": "string", "minLength": 5 },
+				    "modbus_addr": { "type": "integer", "minimum": 1, "maximum": 247 },
+				    "unique_id": { "type": "integer", "minimum": 1 },
+                                    "reading": { "type": "string", "minLength": 5 },
+				    "driver": { "type": "string", "minLength": 10 }
+				},
+                                "required": [ "enable", "description", "modbus_addr", "unique_id", "reading", "driver" ]
+			    },
+                            "additionalItems": false
+                        }
+                    },
+	            "required": [ "enable", "addr", "port", "devices" ]
+                }
+            }
+        }
+    },
+    "additionalProperties": false,
+    "minProperties": 5,
+    "required": [
+        "minieliot",
+        "logging",
+        "drivers",
+        "gateways"
+    ]
+}

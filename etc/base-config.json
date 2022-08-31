@@ -1,0 +1,48 @@
+{
+    "minieliot": {
+    	"version": 1,
+	"mode": "local",
+	"data_dir": "/var/minieliot/data",
+	"read_frequency": 15
+    },
+    "logging": {
+	"handler": "stream",
+	"level": "INFO",
+	"logdir": "/var/log/minieliot",
+	"logfile": "minieliot.log",
+	"max_backup": 30,
+	"rotate_max_bytes": 10240,
+	"rotate_when": "D",
+	"rotate_interval": 1
+    },
+    "db_config": {
+	"user":   "minieliot",
+	"pass":   "minieliot.,",
+	"host":   "127.0.0.1",
+	"port":   5432,
+	"db":     "minieliot_db",
+	"schema": "public"
+    },
+    "rest_config": {
+	"user": "xxx",
+	"pass": "yyyyyyyyyy",
+	"url":  "https://1.2.3.4:9876/api/v1"
+    },
+    "drivers": {
+        "eliot.drivers.klemsan.Powys3122": {
+            "model": "powys_3122",
+            "file": "",
+            "hr_readings": {
+                "read_powys_3101": [ "ALL" ]
+            }
+        },
+        "eliot.drivers.klemsan.Powys1120": {
+            "model": "powys_1120",
+            "file": "",
+            "hr_readings": {
+                "read_powys_1120": [ "ALL" ]
+            }
+        }
+    },
+    "gateways": {}
+}
